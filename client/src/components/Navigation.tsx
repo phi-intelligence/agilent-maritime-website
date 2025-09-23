@@ -8,19 +8,23 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { Moon, Sun, Globe, Ship, Menu, X } from "lucide-react";
+import { Moon, Sun, Globe, Ship, Menu, X, Search } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
+import { SearchModal } from "./SearchModal";
+import { ContactFormModal } from "./ContactFormModal";
+import { useScrollTo } from "@/hooks/useScrollTo";
 
 const languages = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-  { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+  { code: 'en', name: 'English', flag: 'EN' },
+  { code: 'es', name: 'Español', flag: 'ES' },
+  { code: 'fr', name: 'Français', flag: 'FR' },
+  { code: 'de', name: 'Deutsch', flag: 'DE' },
+  { code: 'zh', name: '中文', flag: 'ZH' },
+  { code: 'ja', name: '日本語', flag: 'JA' },
+  { code: 'ar', name: 'العربية', flag: 'AR' },
+  { code: 'nl', name: 'Nederlands', flag: 'NL' },
+  { code: 'el', name: 'Ελληνικά', flag: 'EL' },
 ];
 
 const navItems = [
@@ -34,9 +38,12 @@ const navItems = [
 export function Navigation() {
   const [location] = useLocation();
   const { theme, setTheme } = useTheme();
-  const [currentLang, setCurrentLang] = useState('en');
+  const { currentLanguage, setLanguage, content } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const { scrollToSection } = useScrollTo();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +54,14 @@ export function Navigation() {
   }, []);
 
   const handleLanguageChange = (langCode: string) => {
-    setCurrentLang(langCode);
-    console.log(`Language changed to: ${langCode}`);
-    // TODO: Implement actual language switching functionality
+    setLanguage(langCode);
+  };
+
+  const handleNavClick = (path: string, sectionId?: string) => {
+    if (location === path && sectionId) {
+      scrollToSection(sectionId);
+    }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -84,8 +96,9 @@ export function Navigation() {
                     variant={location === item.path ? "default" : "ghost"}
                     size="sm"
                     className="font-medium"
+                    onClick={() => handleNavClick(item.path)}
                   >
-                    {item.label}
+                    {content.navigation[item.label.toLowerCase() as keyof typeof content.navigation] || item.label}
                   </Button>
                 </Link>
               ))}
@@ -93,6 +106,15 @@ export function Navigation() {
 
             {/* Right Side Controls */}
             <div className="flex items-center space-x-4">
+              {/* Search Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsSearchOpen(true)}
+                data-testid="button-search"
+              >
+                <Search className="h-4 w-4" />
+              </Button>
               {/* Language Switcher */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -103,7 +125,7 @@ export function Navigation() {
                     data-testid="button-language-switcher"
                   >
                     <Globe className="h-4 w-4" />
-                    <span>{languages.find(l => l.code === currentLang)?.flag}</span>
+                    <span className="text-xs font-medium">{languages.find(l => l.code === currentLanguage)?.flag}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="backdrop-blur-md bg-popover/90">
@@ -114,7 +136,7 @@ export function Navigation() {
                       className="gap-3"
                       data-testid={`option-language-${lang.code}`}
                     >
-                      <span>{lang.flag}</span>
+                      <span className="text-xs font-medium">{lang.flag}</span>
                       <span>{lang.name}</span>
                     </DropdownMenuItem>
                   ))}
@@ -154,10 +176,10 @@ export function Navigation() {
                   <Button
                     variant={location === item.path ? "default" : "ghost"}
                     className="w-full justify-start"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => handleNavClick(item.path)}
                     data-testid={`mobile-link-${item.label.toLowerCase()}`}
                   >
-                    {item.label}
+                    {content.navigation[item.label.toLowerCase() as keyof typeof content.navigation] || item.label}
                   </Button>
                 </Link>
               ))}
@@ -175,14 +197,18 @@ export function Navigation() {
                 variant={location === item.path ? "default" : "ghost"}
                 size="sm"
                 className="flex-1 text-xs"
+                onClick={() => handleNavClick(item.path)}
                 data-testid={`bottom-nav-${item.label.toLowerCase()}`}
               >
-                {item.label}
+                {content.navigation[item.label.toLowerCase() as keyof typeof content.navigation] || item.label}
               </Button>
             </Link>
           ))}
         </div>
       </div>
+      {/* Modals */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <ContactFormModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );
 }

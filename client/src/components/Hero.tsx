@@ -1,22 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Phone, ChevronDown } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
+import { useScrollTo } from "@/hooks/useScrollTo";
 import heroImage from "@assets/stock_images/port_operations_carg_4dd82a7d.jpg";
 
 export function Hero() {
+  const { content } = useLanguage();
+  const { scrollToSection } = useScrollTo();
+
   const handleExploreServices = () => {
-    console.log('Explore Services clicked');
-    // TODO: Navigate to services section
+    scrollToSection('services');
   };
 
   const handleContactUs = () => {
-    console.log('Contact Us clicked');
-    // TODO: Open contact form or navigate to contact section
+    scrollToSection('contact');
   };
 
   const handleScrollDown = () => {
-    console.log('Scroll down clicked');
-    // TODO: Smooth scroll to next section
+    scrollToSection('services');
   };
 
   return (
@@ -26,7 +28,7 @@ export function Hero() {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
+        backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
       }}
       data-testid="section-hero"
     >
@@ -62,25 +64,21 @@ export function Hero() {
             data-testid="badge-maritime-excellence"
           >
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse-dot" />
-            Maritime Excellence
+            {content.hero.badge}
           </Badge>
         </div>
 
         {/* Main Heading */}
         <div className="mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4">
-            <span className="block">Agilent Maritime</span>
-            <span className="block text-3xl md:text-5xl lg:text-6xl bg-gradient-to-r from-chart-2 to-chart-3 bg-clip-text text-transparent">
-              Services Limited
-            </span>
+            {content.hero.title}
           </h1>
         </div>
 
         {/* Subtitle */}
         <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
-            Leading Stevedore Shipping Services and Maritime Logistics Solutions at Tema Port, Ghana. 
-            Professional vehicle shipping and cargo handling across West Africa.
+            {content.hero.subtitle}
           </p>
         </div>
 
@@ -92,7 +90,7 @@ export function Hero() {
             onClick={handleExploreServices}
             data-testid="button-explore-services"
           >
-            Explore Our Services
+            {content.hero.cta1}
             <ArrowRight className="h-5 w-5" />
           </Button>
           <Button 
@@ -103,7 +101,7 @@ export function Hero() {
             data-testid="button-contact-us"
           >
             <Phone className="h-5 w-5" />
-            Contact Us
+            {content.hero.cta2}
           </Button>
         </div>
 

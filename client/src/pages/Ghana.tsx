@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, TrendingUp, Building, Award, Globe, ArrowRight } from "lucide-react";
+import { InteractiveMap } from "@/components/InteractiveMap";
+import { PortfolioGallery } from "@/components/PortfolioGallery";
 import executiveImage from "@assets/stock_images/business_professiona_94362ace.jpg";
 
 const ghanaHighlights = [
@@ -210,6 +212,38 @@ export default function Ghana() {
                 </Card>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Interactive Map Section */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Tema Port Operations
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Explore our strategic location and comprehensive facilities at Ghana's premier maritime gateway.
+              </p>
+            </div>
+            
+            <InteractiveMap />
+          </div>
+        </section>
+
+        {/* Featured Projects */}
+        <section className="py-16 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Featured Projects in Ghana
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Showcasing our major maritime projects and successful partnerships across Ghana's maritime sector.
+              </p>
+            </div>
+            
+            <PortfolioGallery />
           </div>
         </section>
 

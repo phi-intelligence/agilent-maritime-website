@@ -142,23 +142,51 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     
     setIsLoading(true);
     
-    // Simulate API call delay for language loading
-    setTimeout(() => {
+    try {
+      // Try to fetch from API first, fall back to local content
+      const response = await fetch(`/api/language/${lang}`);
+      let newContent = defaultContent;
+      
+      if (response.ok) {
+        const apiContent = await response.json();
+        // Use API content if it has the expected structure, otherwise fallback
+        if (apiContent && typeof apiContent === 'object' && apiContent.navigation) {
+          newContent = apiContent as LanguageContent;
+        } else {
+          newContent = languageContent[lang] || defaultContent;
+        }
+      } else {
+        // Use local content as fallback
+        newContent = languageContent[lang] || defaultContent;
+      }
+      
       setCurrentLanguage(lang);
-      setContent(languageContent[lang] || defaultContent);
-      setIsLoading(false);
+      setContent(newContent);
+      
+      // Persist to localStorage
+      localStorage.setItem('preferred-language', lang);
       
       // Update document language
       document.documentElement.lang = lang;
       
       console.log(`Language switched to: ${lang}`);
-    }, 300);
+    } catch (error) {
+      console.warn('Failed to fetch language content from API, using local fallback');
+      setCurrentLanguage(lang);
+      setContent(languageContent[lang] || defaultContent);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    // Initialize with browser language if available
+    // Initialize with stored language preference or browser language
+    const storedLang = localStorage.getItem('preferred-language');
     const browserLang = navigator.language.split('-')[0];
-    if (languageContent[browserLang]) {
+    
+    if (storedLang && languageContent[storedLang]) {
+      setLanguage(storedLang);
+    } else if (languageContent[browserLang]) {
       setLanguage(browserLang);
     }
   }, []);

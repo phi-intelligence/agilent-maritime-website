@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, X, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 
 interface SearchResult {
   id: string;
@@ -21,17 +22,22 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState<'all' | 'services' | 'portfolio'>('all');
+  const [searchType, setSearchType] = useState<'all' | 'service' | 'portfolio'>('all');
+  const [, setLocation] = useLocation();
 
   const { data: searchResults = [], isLoading } = useQuery({
-    queryKey: ['/api/search', searchQuery, searchType === 'all' ? undefined : searchType],
+    queryKey: ['/api/search', { q: searchQuery, type: searchType === 'all' ? undefined : searchType }],
     enabled: searchQuery.length > 0,
     staleTime: 5 * 60 * 1000, // 5 minutes
   }) as { data: SearchResult[], isLoading: boolean };
 
   const handleResultClick = (result: SearchResult) => {
-    console.log(`Navigate to ${result.type}: ${result.title}`);
-    // TODO: Implement navigation to specific result
+    // Navigate based on result type
+    if (result.type === 'service') {
+      setLocation('/services');
+    } else if (result.type === 'portfolio') {
+      setLocation('/portfolio');
+    }
     onClose();
   };
 
@@ -86,7 +92,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           <div className="flex gap-2">
             {[
               { key: 'all', label: 'All Results' },
-              { key: 'services', label: 'Services' },
+              { key: 'service', label: 'Services' },
               { key: 'portfolio', label: 'Portfolio' }
             ].map((filter) => (
               <Button
@@ -120,7 +126,9 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </div>
             ) : (
               <div className="space-y-2">
-                {(searchResults as SearchResult[]).map((result: SearchResult) => (
+                {(searchResults as SearchResult[])
+                  .filter(result => searchType === 'all' || result.type === searchType)
+                  .map((result: SearchResult) => (
                   <Card 
                     key={result.id}
                     className="cursor-pointer hover-elevate transition-all duration-200"
