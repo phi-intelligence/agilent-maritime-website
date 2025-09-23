@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import Portfolio from "@/pages/Portfolio";
@@ -31,8 +32,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="light" storageKey="agilent-ui-theme">
-          <Toaster />
-          <Router />
+          <LanguageProvider>
+            <Toaster />
+            <Router />
+          </LanguageProvider>
         </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>

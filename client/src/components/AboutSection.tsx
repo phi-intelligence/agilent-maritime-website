@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import rorImage from "@assets/generated_images/RoRo_operations_showcase_42f7be0c.png";
+import rorImage from "@assets/stock_images/cargo_ship_loading_v_7b40175e.jpg";
 
 export function AboutSection() {
   const handleLearnMore = () => {

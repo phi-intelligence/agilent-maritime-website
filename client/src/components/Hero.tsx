@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Phone, ChevronDown } from "lucide-react";
-import heroImage from "@assets/generated_images/Maritime_port_hero_background_94b32449.png";
+import heroImage from "@assets/stock_images/port_operations_carg_4dd82a7d.jpg";
 
 export function Hero() {
   const handleExploreServices = () => {

@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Award, TrendingUp } from "lucide-react";
-import containerImage from "@assets/generated_images/Container_operations_showcase_4ee11e9f.png";
-import heavyLiftImage from "@assets/generated_images/Heavy_lift_operations_c2cd6647.png";
+import containerImage from "@assets/stock_images/shipping_containers__4ae963ed.jpg";
+import heavyLiftImage from "@assets/stock_images/heavy_machinery_port_83342e21.jpg";
 
 const portfolioProjects = [
   {

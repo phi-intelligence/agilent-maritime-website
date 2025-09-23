@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, TrendingUp, Building, Award, Globe, ArrowRight } from "lucide-react";
-import executiveImage from "@assets/generated_images/Executive_team_member_1cf2e48c.png";
+import executiveImage from "@assets/stock_images/business_professiona_94362ace.jpg";
 
 const ghanaHighlights = [
   {
