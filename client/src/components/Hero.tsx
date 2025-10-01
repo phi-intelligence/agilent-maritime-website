@@ -3,11 +3,44 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Phone, ChevronDown } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useScrollTo } from "@/hooks/useScrollTo";
-import heroImage from "@assets/stock_images/port_operations_carg_4dd82a7d.jpg";
+import { useEffect, useState } from "react";
+
+import { getAssetUrl, ASSET_PATHS } from '@/utils/assets';
+
+// Use organized asset path
+const getHeroVideoUrl = () => {
+  return getAssetUrl(ASSET_PATHS.HERO.VIDEO_HOME);
+};
 
 export function Hero() {
   const { content } = useLanguage();
   const { scrollToSection } = useScrollTo();
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    // Preload the hero video
+    const videoUrl = getHeroVideoUrl();
+    
+    const video = document.createElement('video');
+    video.preload = 'auto';
+    video.loop = true;
+    video.muted = true;
+    
+    video.onloadedmetadata = () => {
+      setVideoLoaded(true);
+    };
+    video.onerror = () => {
+      setVideoError(true);
+      setVideoLoaded(true); // Still show the section even if video fails
+    };
+    video.onended = () => {
+      video.currentTime = 0;
+      video.play();
+    };
+    video.src = videoUrl;
+    video.load();
+  }, []);
 
   const handleExploreServices = () => {
     scrollToSection('services');
@@ -23,17 +56,34 @@ export function Hero() {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-600 to-slate-800"
       data-testid="section-hero"
     >
+      {/* Video Background */}
+      {videoLoaded && !videoError && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={getAssetUrl(ASSET_PATHS.HERO.PORT_AERIAL)}
+          onEnded={(e) => {
+            // Ensure seamless looping
+            e.currentTarget.currentTime = 0;
+            e.currentTarget.play();
+          }}
+        >
+          <source src={getHeroVideoUrl()} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
+
+      {/* Video Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/50 to-slate-700/60 z-[1]" />
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[2]">
         {/* Floating Particles */}
         {Array.from({ length: 6 }).map((_, i) => (
           <div
@@ -54,18 +104,17 @@ export function Hero() {
         </div>
       </div>
 
+      
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <div className="mb-8 animate-fade-in">
-          <Badge 
-            variant="secondary" 
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm backdrop-blur-sm bg-background/20 border border-primary/20"
-            data-testid="badge-maritime-excellence"
-          >
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse-dot" />
-            {content.hero.badge}
-          </Badge>
+        {/* Logo */}
+        <div className="mb-12 animate-fade-in">
+          <img 
+            src={getAssetUrl(ASSET_PATHS.HERO.LOGO)} 
+            alt="Agilent Maritime Logo" 
+            className="h-24 md:h-32 lg:h-40 w-auto mx-auto drop-shadow-lg"
+            data-testid="hero-logo"
+          />
         </div>
 
         {/* Main Heading */}
@@ -80,6 +129,12 @@ export function Hero() {
           <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
             {content.hero.subtitle}
           </p>
+          {/* Extended Company Description */}
+          <div className="mt-6 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-300 leading-relaxed">
+              {content.hero.extendedDescription || "Premier Roll-on/Roll-off (RoRo) specialist in West Africa, handling 400,000+ vehicles annually at Tema Port, Ghana. With 15+ years of maritime excellence, we provide comprehensive stevedoring and port services across the region."}
+            </p>
+          </div>
         </div>
 
         {/* CTA Buttons */}
@@ -106,19 +161,22 @@ export function Hero() {
         </div>
 
         {/* Statistics - Desktop Only */}
-        <div className="hidden lg:flex justify-center gap-12 animate-fade-in" style={{ animationDelay: '0.8s' }}>
-          {[
-            { value: '15+', label: 'Years Experience' },
-            { value: '400K+', label: 'Vehicles Shipped' },
-            { value: '24/7', label: 'Port Operations' },
-          ].map((stat, index) => (
+        <div className="hidden lg:flex justify-center gap-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          {(content.hero.statistics || [
+            { value: '15+', label: 'Years Experience', description: 'Maritime Excellence' },
+            { value: '400K+', label: 'Vehicles Annually', description: 'RoRo Operations' },
+            { value: '1000+', label: 'Vehicles Shipped', description: 'Successfully Delivered' },
+            { value: '24/7', label: 'Port Operations', description: 'Round the Clock' },
+            { value: '98%', label: 'Success Rate', description: 'Customer Satisfaction' },
+          ]).map((stat, index) => (
             <div 
               key={index} 
-              className="text-center backdrop-blur-sm bg-background/10 rounded-lg px-6 py-4 border border-white/10"
+              className="text-center backdrop-blur-sm bg-background/10 rounded-lg px-6 py-4 border border-white/10 hover:bg-background/20 transition-all duration-300"
               data-testid={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className="text-3xl font-bold text-white">{stat.value}</div>
-              <div className="text-gray-300 text-sm">{stat.label}</div>
+              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-gray-300 text-sm font-medium">{stat.label}</div>
+              <div className="text-gray-400 text-xs mt-1">{stat.description}</div>
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
-import { type User, type InsertUser, type Contact, type InsertContact, type Report, type InsertReport, type LanguageContent } from "@shared/schema";
+import { type User, type InsertUser, type Contact, type InsertContact } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { DatabaseStorage } from "./database-storage";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -14,70 +15,21 @@ export interface IStorage {
   getAllContacts(): Promise<Contact[]>;
   getContact(id: string): Promise<Contact | undefined>;
   markContactResponded(id: string): Promise<void>;
+  deleteContact(id: string): Promise<void>;
   
-  // Reports management
-  getAllReports(): Promise<Report[]>;
-  getReportsByCategory(category: string): Promise<Report[]>;
-  getReport(id: string): Promise<Report | undefined>;
-  incrementDownloadCount(id: string): Promise<void>;
   
-  // Language content
-  getLanguageContent(languageCode: string): Promise<LanguageContent[]>;
-  setLanguageContent(languageCode: string, contentKey: string, content: any): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contacts: Map<string, Contact>;
-  private reports: Map<string, Report>;
-  private languageContent: Map<string, LanguageContent>;
 
   constructor() {
     this.users = new Map();
     this.contacts = new Map();
-    this.reports = new Map();
-    this.languageContent = new Map();
-    
-    // Initialize with sample reports
-    this.initializeSampleData();
   }
 
-  private initializeSampleData() {
-    // Sample reports
-    const sampleReports = [
-      {
-        id: randomUUID(),
-        title: "Annual Report 2023",
-        category: "annual",
-        filePath: "/reports/annual-2023.pdf",
-        fileSize: "2.5 MB",
-        publishDate: new Date("2024-03-15"),
-        downloadCount: "156"
-      },
-      {
-        id: randomUUID(),
-        title: "Q3 2024 Performance Update",
-        category: "quarterly",
-        filePath: "/reports/q3-2024.pdf",
-        fileSize: "1.2 MB",
-        publishDate: new Date("2024-10-15"),
-        downloadCount: "89"
-      },
-      {
-        id: randomUUID(),
-        title: "Sustainability Report 2023",
-        category: "sustainability",
-        filePath: "/reports/sustainability-2023.pdf",
-        fileSize: "3.2 MB",
-        publishDate: new Date("2024-06-01"),
-        downloadCount: "234"
-      }
-    ];
-    
-    sampleReports.forEach(report => {
-      this.reports.set(report.id, report);
-    });
-  }
+
 
   async getUser(id: string): Promise<User | undefined> {
     return this.users.get(id);
@@ -126,47 +78,13 @@ export class MemStorage implements IStorage {
       this.contacts.set(id, contact);
     }
   }
-  
-  async getAllReports(): Promise<Report[]> {
-    return Array.from(this.reports.values()).sort(
-      (a, b) => b.publishDate.getTime() - a.publishDate.getTime()
-    );
-  }
-  
-  async getReportsByCategory(category: string): Promise<Report[]> {
-    return Array.from(this.reports.values())
-      .filter(report => report.category === category)
-      .sort((a, b) => b.publishDate.getTime() - a.publishDate.getTime());
-  }
-  
-  async getReport(id: string): Promise<Report | undefined> {
-    return this.reports.get(id);
-  }
-  
-  async incrementDownloadCount(id: string): Promise<void> {
-    const report = this.reports.get(id);
-    if (report && report.downloadCount) {
-      const count = parseInt(report.downloadCount) + 1;
-      report.downloadCount = count.toString();
-      this.reports.set(id, report);
-    }
-  }
-  
-  async getLanguageContent(languageCode: string): Promise<LanguageContent[]> {
-    return Array.from(this.languageContent.values())
-      .filter(content => content.languageCode === languageCode);
-  }
-  
-  async setLanguageContent(languageCode: string, contentKey: string, content: any): Promise<void> {
-    const id = `${languageCode}-${contentKey}`;
-    const languageContentItem: LanguageContent = {
-      id,
-      languageCode,
-      contentKey,
-      content
-    };
-    this.languageContent.set(id, languageContentItem);
+
+  async deleteContact(id: string): Promise<void> {
+    this.contacts.delete(id);
   }
 }
 
-export const storage = new MemStorage();
+// Use database storage in production, fallback to memory storage for development
+export const storage = process.env.NODE_ENV === 'production' 
+  ? new DatabaseStorage() 
+  : new MemStorage();

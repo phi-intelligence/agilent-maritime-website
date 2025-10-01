@@ -6,42 +6,32 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import { Moon, Sun, Globe, Ship, Menu, X, Search } from "lucide-react";
+import { Moon, Sun, Globe, Ship, Menu, X, Settings, LogIn } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage } from "./LanguageProvider";
-import { SearchModal } from "./SearchModal";
 import { ContactFormModal } from "./ContactFormModal";
 import { useScrollTo } from "@/hooks/useScrollTo";
+import { getAssetUrl, ASSET_PATHS } from "@/utils/assets";
 
-const languages = [
-  { code: 'en', name: 'English', flag: 'EN' },
-  { code: 'es', name: 'Español', flag: 'ES' },
-  { code: 'fr', name: 'Français', flag: 'FR' },
-  { code: 'de', name: 'Deutsch', flag: 'DE' },
-  { code: 'zh', name: '中文', flag: 'ZH' },
-  { code: 'ja', name: '日本語', flag: 'JA' },
-  { code: 'ar', name: 'العربية', flag: 'AR' },
-  { code: 'nl', name: 'Nederlands', flag: 'NL' },
-  { code: 'el', name: 'Ελληνικά', flag: 'EL' },
-];
+// Languages are now provided by the LanguageProvider
 
 const navItems = [
-  { path: '/', label: 'Home' },
-  { path: '/services', label: 'Services' },
-  { path: '/portfolio', label: 'Portfolio' },
-  { path: '/ghana', label: 'Ghana' },
-  { path: '/reports', label: 'Reports' },
+  { path: '/', label: 'home', key: 'home' },
+  { path: '/services', label: 'services', key: 'services' },
+  { path: '/portfolio', label: 'portfolio', key: 'portfolio' },
+  { path: '/ghana', label: 'ghana', key: 'ghana' },
+  { path: '/contact', label: 'contact', key: 'contact' },
 ];
 
 export function Navigation() {
   const [location] = useLocation();
   const { theme, setTheme } = useTheme();
-  const { currentLanguage, setLanguage, content } = useLanguage();
+  const { currentLanguage, setLanguage, content, availableLanguages } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { scrollToSection } = useScrollTo();
 
@@ -80,7 +70,11 @@ export function Navigation() {
             {/* Logo */}
             <Link href="/" data-testid="link-home">
               <div className="flex items-center space-x-3 hover-elevate rounded-lg px-3 py-2">
-                <Ship className="h-8 w-8 text-primary" />
+                <img 
+                  src={getAssetUrl(ASSET_PATHS.HERO.LOGO)} 
+                  alt="Agilent Maritime Logo" 
+                  className="h-8 w-auto"
+                />
                 <div className="flex flex-col">
                   <span className="text-xl font-bold text-foreground">Agilent</span>
                   <span className="text-xs text-muted-foreground -mt-1">Maritime</span>
@@ -98,7 +92,7 @@ export function Navigation() {
                     className="font-medium"
                     onClick={() => handleNavClick(item.path)}
                   >
-                    {content.navigation[item.label.toLowerCase() as keyof typeof content.navigation] || item.label}
+                    {content.navigation[item.key as keyof typeof content.navigation] || item.label}
                   </Button>
                 </Link>
               ))}
@@ -106,15 +100,6 @@ export function Navigation() {
 
             {/* Right Side Controls */}
             <div className="flex items-center space-x-4">
-              {/* Search Button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsSearchOpen(true)}
-                data-testid="button-search"
-              >
-                <Search className="h-4 w-4" />
-              </Button>
               {/* Language Switcher */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -125,11 +110,11 @@ export function Navigation() {
                     data-testid="button-language-switcher"
                   >
                     <Globe className="h-4 w-4" />
-                    <span className="text-xs font-medium">{languages.find(l => l.code === currentLanguage)?.flag}</span>
+                    <span className="text-xs font-medium">{availableLanguages.find(l => l.code === currentLanguage)?.flag}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="backdrop-blur-md bg-popover/90">
-                  {languages.map((lang) => (
+                  {availableLanguages.map((lang) => (
                     <DropdownMenuItem
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang.code)}
@@ -143,15 +128,37 @@ export function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Theme Toggle */}
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                data-testid="button-theme-toggle"
-              >
-                {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-              </Button>
+              {/* Settings Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    data-testid="button-settings"
+                  >
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="backdrop-blur-md bg-popover/90">
+                  <DropdownMenuItem
+                    onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                    className="gap-3"
+                    data-testid="option-theme-toggle"
+                  >
+                    {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                    <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => window.location.href = '/admin'}
+                    className="gap-3"
+                    data-testid="option-company-login"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    <span>Company Login</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {/* Mobile Menu Button */}
               <Button
@@ -179,7 +186,7 @@ export function Navigation() {
                     onClick={() => handleNavClick(item.path)}
                     data-testid={`mobile-link-${item.label.toLowerCase()}`}
                   >
-                    {content.navigation[item.label.toLowerCase() as keyof typeof content.navigation] || item.label}
+                    {content.navigation[item.key as keyof typeof content.navigation] || item.label}
                   </Button>
                 </Link>
               ))}
@@ -207,7 +214,6 @@ export function Navigation() {
         </div>
       </div>
       {/* Modals */}
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <ContactFormModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );

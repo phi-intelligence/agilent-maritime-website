@@ -1,43 +1,23 @@
 import { Link } from "wouter";
 import { Ship, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const footerSections = [
-  {
-    title: "Services",
-    links: [
-      { label: "RoRo Operations", href: "/services#roro" },
-      { label: "Container Handling", href: "/services#container" },
-      { label: "Heavy Lift Cargo", href: "/services#heavy-lift" },
-      { label: "Ship Agency", href: "/services#agency" },
-    ]
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Our Portfolio", href: "/portfolio" },
-      { label: "Ghana Operations", href: "/ghana" },
-      { label: "Reports", href: "/reports" },
-    ]
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Contact Us", href: "/contact" },
-      { label: "Safety & Quality", href: "/safety" },
-      { label: "Careers", href: "/careers" },
-      { label: "Emergency Response", href: "/emergency" },
-    ]
-  }
-];
+import { useLanguage } from "./LanguageProvider";
 
 export function Footer() {
+  const { content } = useLanguage();
+  
   const currentYear = new Date().getFullYear();
 
   const handleSocialClick = (platform: string) => {
-    console.log(`${platform} clicked`);
-    // TODO: Open social media links
+    const socialLinks: Record<string, string> = {
+      'LinkedIn': 'https://www.linkedin.com/company/agilent-maritime-services-ltd/?originalSubdomain=gh',
+      'Facebook': 'https://www.facebook.com/p/Agilent-Maritime-Services-Ltd-100040083475943/'
+    };
+    
+    const url = socialLinks[platform];
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (
@@ -56,29 +36,52 @@ export function Footer() {
             </Link>
             
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Leading Roll-on/Roll-off specialist at Tema Port, Ghana. Professional maritime 
-              logistics solutions with over 15 years of experience in West Africa.
+              {content.footer?.description || "Leading Roll-on/Roll-off specialist at Tema Port, Ghana. Professional maritime logistics solutions with over 15 years of experience in West Africa."}
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">Tema Port, Greater Accra, Ghana</span>
+                <span className="text-muted-foreground">{content.footer?.address || "Tema Port, Greater Accra, Ghana"}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">+233-30-202-1234</span>
+                <span className="text-muted-foreground">{content.footer?.phone || "+233-30-202-1234"}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">info@agilentmaritime.com</span>
+                <span className="text-muted-foreground">{content.footer?.email || "info@agilentmaritime.com"}</span>
               </div>
             </div>
           </div>
 
           {/* Footer Links */}
-          {footerSections.map((section, index) => (
+          {(content.footer?.sections || [
+            {
+              title: "Services",
+              links: [
+                { label: "RoRo Operations", href: "/services#roro" },
+                { label: "Container Handling", href: "/services#container" },
+                { label: "Heavy Lift Cargo", href: "/services#heavy-lift" },
+                { label: "Ship Agency", href: "/services#agency" }
+              ]
+            },
+            {
+              title: "Company",
+              links: [
+                { label: "Our Portfolio", href: "/portfolio" },
+                { label: "Ghana Operations", href: "/ghana" },
+                { label: "Contact", href: "/contact" }
+              ]
+            },
+            {
+              title: "Support",
+              links: [
+                { label: "Contact Us", href: "/contact" }
+              ]
+            }
+          ]).map((section, index) => (
             <div key={index}>
               <h3 className="font-semibold text-foreground mb-4">{section.title}</h3>
               <ul className="space-y-3">
@@ -103,12 +106,12 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <p className="text-muted-foreground text-sm">
-              © {currentYear} Agilent Maritime Services Limited. All rights reserved.
+              © {currentYear} {content.footer?.company || "Agilent Maritime Services Limited"}. {content.footer?.copyright || "All rights reserved."}
             </p>
 
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              {['LinkedIn', 'Twitter', 'Facebook'].map((platform) => (
+              {(content.footer?.social || ["LinkedIn", "Twitter", "Facebook"]).map((platform) => (
                 <Button
                   key={platform}
                   variant="ghost"
@@ -122,23 +125,6 @@ export function Footer() {
               ))}
             </div>
 
-            {/* Legal Links */}
-            <div className="flex items-center gap-4 text-sm">
-              <Link 
-                href="/privacy" 
-                className="text-muted-foreground hover:text-primary transition-colors"
-                data-testid="link-privacy"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                href="/terms" 
-                className="text-muted-foreground hover:text-primary transition-colors"
-                data-testid="link-terms"
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
 

@@ -1,0 +1,73 @@
+{
+  "navigation": {
+    "home": "ホーム",
+    "services": "サービス",
+    "portfolio": "ポートフォリオ",
+    "ghana": "ガーナ",
+    "reports": "レポート",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "badge": "海事の卓越性",
+    "title": "Agilent Maritime Services Limited",
+    "subtitle": "ガーナ・テマ港でのリーディング荷役輸送サービスと海事物流ソリューション。西アフリカ全域でのプロフェッショナルな車両輸送と貨物取扱い。",
+    "cta1": "サービスを見る",
+    "cta2": "お問い合わせ"
+  },
+  "services": {
+    "title": "海事サービス",
+    "subtitle": "現代の海事貿易の需要に合わせたプロフェッショナルな荷役と港湾サービス。",
+    "items": [
+      {
+        "title": "重量物・プロジェクト貨物",
+        "description": "専門設備を使用した特大貨物、雑貨、プロジェクト貨物の専門取扱い。"
+      },
+      {
+        "title": "バルク・雑貨作業",
+        "description": "穀物、鉱物、鋼製品を含むドライバルク商品の包括的な取扱い。"
+      },
+      {
+        "title": "Ro/Ro・車両取扱い",
+        "description": "自動車、トラック、トレーラー、建設機械のプロフェッショナルなロールオン/ロールオフ作業。"
+      },
+      {
+        "title": "安全・品質保証",
+        "description": "厳格な安全プロトコルを通じてゼロインシデントを確保するISO認定HSSEQ管理。"
+      },
+      {
+        "title": "船舶代理・書類",
+        "description": "通関手続き、海事書類、乗組員サービスを含むフルサービスの港湾代理。"
+      },
+      {
+        "title": "貨物保管・物流",
+        "description": "温度管理倉庫、コンテナ詰め/取り出し、在庫管理。"
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "ポートフォリオ",
+    "subtitle": "テマ港で取り扱う包括的な船隊を探索。",
+    "items": []
+  },
+  "ghana": {
+    "title": "ガーナ業務",
+    "subtitle": "西アフリカの主要な海事ゲートウェイと戦略的ビジネスハブ。",
+    "content": ""
+  },
+  "reports": {
+    "title": "レポート",
+    "subtitle": "海事業務の包括的なレポートと文書。",
+    "content": ""
+  },
+  "footer": {
+    "company": "Agilent Maritime Services Limited",
+    "description": "ガーナ・テマ港のリーディングRoll-on/Roll-off専門家。",
+    "links": []
+  },
+  "common": {
+    "learnMore": "詳細を見る",
+    "contactUs": "お問い合わせ",
+    "getQuote": "見積もり取得",
+    "download": "ダウンロード"
+  }
+}

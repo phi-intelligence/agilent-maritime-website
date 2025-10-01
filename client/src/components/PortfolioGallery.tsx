@@ -4,12 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Calendar, MapPin, Users, Truck, Ship, Eye, ExternalLink } from "lucide-react";
-import vehicleTerminalImg from "@assets/stock_images/port_crane_operation_01b3e60a.jpg";
-import heavyLiftImg from "@assets/stock_images/heavy_machinery_port_47d09f26.jpg";
-import containerImg from "@assets/stock_images/shipping_containers__1986ce8b.jpg";
-import automotiveImg from "@assets/stock_images/cargo_ship_loading_v_7b40175e.jpg";
-import miningImg from "@assets/stock_images/maritime_logistics_w_b66486e4.jpg";
-import fallbackImg from "@assets/stock_images/port_operations_carg_4dd82a7d.jpg";
+import { getAssetUrl, ASSET_PATHS } from "@/utils/assets";
 
 interface PortfolioProject {
   id: string;
@@ -32,7 +27,7 @@ const portfolioProjects: PortfolioProject[] = [
     title: 'West Africa Vehicle Terminal Expansion',
     description: 'Major expansion of RoRo terminal operations to accommodate increased vehicle imports from Europe and Asia.',
     category: 'roro',
-    image: vehicleTerminalImg,
+    image: getAssetUrl(ASSET_PATHS.STOCK.PORT_CRANE),
     location: 'Tema Port, Ghana',
     year: '2023',
     client: 'Ghana Ports & Harbours Authority',
@@ -62,10 +57,10 @@ const portfolioProjects: PortfolioProject[] = [
     title: 'Mining Equipment Heavy Lift Project',
     description: 'Specialized handling and transportation of oversized mining equipment for major West African mining operations.',
     category: 'heavy-lift',
-    image: heavyLiftImg,
+    image: getAssetUrl(ASSET_PATHS.STOCK.PORT_CRANE),
     location: 'Tema Port, Ghana',
     year: '2023',
-    client: 'AngloGold Ashanti',
+    client: 'Agilent Maritime Services Limited',
     duration: '6 months',
     scope: [
       'Heavy lift crane operations',
@@ -92,7 +87,7 @@ const portfolioProjects: PortfolioProject[] = [
     title: 'Container Terminal Automation',
     description: 'Implementation of automated container handling systems to improve efficiency and reduce operational costs.',
     category: 'container',
-    image: containerImg,
+    image: getAssetUrl(ASSET_PATHS.STOCK.SHIPPING_CONTAINERS),
     location: 'Tema Port, Ghana',
     year: '2022',
     client: 'Meridian Port Services',
@@ -122,7 +117,7 @@ const portfolioProjects: PortfolioProject[] = [
     title: 'Automotive Import Hub Development',
     description: 'Establishment of dedicated automotive import processing facility with value-added services.',
     category: 'automotive',
-    image: automotiveImg,
+    image: getAssetUrl(ASSET_PATHS.STOCK.SHIPPING_CONTAINERS),
     location: 'Tema Port, Ghana',
     year: '2022',
     client: 'Toyota Ghana',
@@ -152,7 +147,7 @@ const portfolioProjects: PortfolioProject[] = [
     title: 'Gold Mining Logistics Hub',
     description: 'Specialized logistics facility for gold mining equipment and supplies serving multiple mining companies.',
     category: 'mining',
-    image: miningImg,
+    image: getAssetUrl(ASSET_PATHS.STOCK.PORT_OPERATIONS),
     location: 'Tema Port, Ghana',
     year: '2021',
     client: 'Newmont Ghana',
@@ -239,7 +234,7 @@ export function PortfolioGallery({ className = "" }: PortfolioGalleryProps) {
                 className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/attached_assets/stock_images/port_operations_cargo.jpg';
+                  target.src = getAssetUrl(ASSET_PATHS.STOCK.PORT_OPERATIONS);
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -306,7 +301,7 @@ export function PortfolioGallery({ className = "" }: PortfolioGalleryProps) {
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = '/attached_assets/stock_images/port_operations_cargo.jpg';
+                      target.src = getAssetUrl(ASSET_PATHS.STOCK.PORT_OPERATIONS);
                     }}
                   />
                   <Badge className={`${getCategoryColor(selectedProject.category)} text-white absolute top-4 left-4`}>

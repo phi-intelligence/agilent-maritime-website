@@ -1,0 +1,73 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Diensten",
+    "portfolio": "Portfolio",
+    "ghana": "Ghana",
+    "reports": "Rapporten",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Maritieme Uitmuntendheid",
+    "title": "Agilent Maritime Services Limited",
+    "subtitle": "Toonaangevende Stuwadoor Scheepvaartdiensten en Maritieme Logistieke Oplossingen in de Haven van Tema, Ghana. Professioneel voertuigtransport en vrachtbehandeling in heel West-Afrika.",
+    "cta1": "Ontdek Onze Diensten",
+    "cta2": "Neem Contact Op"
+  },
+  "services": {
+    "title": "Maritieme Diensten",
+    "subtitle": "Professionele stuwadoors- en terminaldiensten afgestemd op de eisen van de moderne maritieme handel.",
+    "items": [
+      {
+        "title": "Zware Last & Projectlading",
+        "description": "Deskundige behandeling van overmaatse lading, stukgoed en projectzendingen met gespecialiseerde apparatuur."
+      },
+      {
+        "title": "Bulk- & Stukgoed Operaties",
+        "description": "Uitgebreide behandeling van droge bulkladingen inclusief granen, mineralen en staalproducten."
+      },
+      {
+        "title": "Ro/Ro & Voertuigbehandeling",
+        "description": "Professionele roll-on/roll-off operaties voor auto's, vrachtwagens, aanhangers en bouwmaterieel."
+      },
+      {
+        "title": "Veiligheid & Kwaliteitsborging",
+        "description": "ISO-gecertificeerd HSSEQ management dat nul incidenten waarborgt door rigoureuze veiligheidsprotocollen."
+      },
+      {
+        "title": "Scheepsmakelaardij & Documentatie",
+        "description": "Volledige havenmakelaardij inclusief douaneafhandeling, maritieme documentatie en bemanningsdiensten."
+      },
+      {
+        "title": "Vrachtopslag & Logistiek",
+        "description": "Klimaatgecontroleerde opslag, container stuffing/stripping en voorraadbeheer."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Verken onze uitgebreide vloot van schepen die worden behandeld in de haven van Tema.",
+    "items": []
+  },
+  "ghana": {
+    "title": "Ghana Operaties",
+    "subtitle": "West-Afrika's toonaangevende maritieme gateway en strategische business hub.",
+    "content": ""
+  },
+  "reports": {
+    "title": "Rapporten",
+    "subtitle": "Uitgebreide rapporten en documentatie voor onze maritieme operaties.",
+    "content": ""
+  },
+  "footer": {
+    "company": "Agilent Maritime Services Limited",
+    "description": "Toonaangevende Roll-on/Roll-off specialist in de haven van Tema, Ghana.",
+    "links": []
+  },
+  "common": {
+    "learnMore": "Meer Leren",
+    "contactUs": "Neem Contact Op",
+    "getQuote": "Offerte Ontvangen",
+    "download": "Downloaden"
+  }
+}

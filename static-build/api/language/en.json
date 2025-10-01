@@ -1,0 +1,143 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "ghana": "Ghana",
+    "reports": "Reports",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Maritime Excellence",
+    "title": "Agilent Maritime Services Limited",
+    "subtitle": "Leading Stevedore Shipping Services and Maritime Logistics Solutions at Tema Port, Ghana. Professional vehicle shipping and cargo handling across West Africa.",
+    "extendedDescription": "Premier Roll-on/Roll-off (RoRo) specialist in West Africa, handling 400,000+ vehicles annually at Tema Port, Ghana. With 15+ years of maritime excellence, we provide comprehensive stevedoring and port services across the region.",
+    "cta1": "Explore Our Services",
+    "cta2": "Contact Us",
+    "statistics": [
+      {
+        "value": "15+",
+        "label": "Years Experience",
+        "description": "Maritime Excellence"
+      },
+      {
+        "value": "400K+",
+        "label": "Vehicles Annually",
+        "description": "RoRo Operations"
+      },
+      {
+        "value": "1000+",
+        "label": "Vehicles Shipped",
+        "description": "Successfully Delivered"
+      },
+      {
+        "value": "24/7",
+        "label": "Port Operations",
+        "description": "Round the Clock"
+      },
+      {
+        "value": "98%",
+        "label": "Success Rate",
+        "description": "Customer Satisfaction"
+      }
+    ]
+  },
+  "services": {
+    "title": "Maritime Services",
+    "subtitle": "Professional stevedoring and port services tailored to meet the demands of modern maritime commerce.",
+    "items": [
+      {
+        "title": "Heavy Lift & Project Cargo",
+        "description": "Expert handling of oversized cargo, breakbulk, and project shipments with specialized equipment.",
+        "details": "Handling cargo up to 450 tons with precision cranes, specialized transport, and custom engineering solutions. 15+ years experience in complex project logistics.",
+        "capabilities": [
+          "Up to 450 tons capacity",
+          "Custom engineering solutions",
+          "Project management",
+          "15+ years experience"
+        ]
+      },
+      {
+        "title": "Bulk & Break Bulk Operations",
+        "description": "Comprehensive dry bulk commodity handling including grains, minerals, and steel products.",
+        "details": "State-of-the-art bulk handling facilities with 25,000 sqm storage capacity, automated loading systems, and climate-controlled storage options.",
+        "capabilities": [
+          "25,000 sqm storage",
+          "Automated systems",
+          "Climate control",
+          "Multiple commodities"
+        ]
+      },
+      {
+        "title": "Ro/Ro & Vehicle Handling",
+        "description": "Professional roll-on/roll-off operations for cars, trucks, trailers, and construction equipment.",
+        "details": "West Africa's premier RoRo terminal handling 400,000+ vehicles annually with dedicated ramps, vehicle storage areas, and specialized handling equipment.",
+        "capabilities": [
+          "400,000+ vehicles/year",
+          "Dedicated ramps",
+          "Vehicle storage",
+          "Specialized equipment"
+        ]
+      },
+      {
+        "title": "Safety & Quality Assurance",
+        "description": "ISO-certified HSSEQ management ensuring zero incidents through rigorous safety protocols.",
+        "details": "ISO 9001:2015 certified with 98% safety record, comprehensive training programs, and continuous improvement initiatives across all operations.",
+        "capabilities": [
+          "ISO 9001:2015 certified",
+          "98% safety record",
+          "Training programs",
+          "Continuous improvement"
+        ]
+      },
+      {
+        "title": "Ship Agency & Documentation",
+        "description": "Full-service port agency including customs clearance, maritime documentation, and crew services.",
+        "details": "Complete port agency services with 24/7 support, customs expertise, maritime documentation, crew services, and vessel coordination.",
+        "capabilities": [
+          "24/7 support",
+          "Customs expertise",
+          "Maritime documentation",
+          "Crew services"
+        ]
+      },
+      {
+        "title": "Cargo Storage & Logistics",
+        "description": "Climate-controlled warehousing, container stuffing/stripping, and inventory management.",
+        "details": "Modern warehousing facilities with 50,000 sqm capacity, container handling, inventory management, and integrated logistics solutions.",
+        "capabilities": [
+          "50,000 sqm capacity",
+          "Container handling",
+          "Inventory management",
+          "Integrated logistics"
+        ]
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Explore our comprehensive fleet of vessels handled at Tema Port.",
+    "items": []
+  },
+  "ghana": {
+    "title": "Ghana Operations",
+    "subtitle": "West Africa's premier maritime gateway and strategic business hub.",
+    "content": ""
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitle": "Comprehensive reports and documentation for our maritime operations.",
+    "content": ""
+  },
+  "footer": {
+    "company": "Agilent Maritime Services Limited",
+    "description": "Leading Roll-on/Roll-off specialist at Tema Port, Ghana.",
+    "links": []
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "getQuote": "Get Quote",
+    "download": "Download"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "ghana": "Ghana",
+    "reports": "Rapports",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Excellence Maritime",
+    "title": "Agilent Maritime Services Limited",
+    "subtitle": "Services Leader de Transport d'Arrimeurs et Solutioons Logistiques Maritimes au Port de Tema, Ghana. Transport professionnel de véhicules et manutention de fret à travers l'Afrique de l'Ouest.",
+    "cta1": "Découvrir nos services",
+    "cta2": "Nous Contacter"
+  },
+  "services": {
+    "title": "Services Maritimes",
+    "subtitle": "Services professionnels de manutention portuaire adaptés aux exigences du commerce maritime moderne.",
+    "items": [
+      {
+        "title": "Fret Lourd et de Projets",
+        "description": "Manutention experte de fret surdimensionné, général et d'expéditions de projets avec équipement spécialisé."
+      },
+      {
+        "title": "Opérations de Vrac et de Général",
+        "description": "Manutention complète de produits de base secs incluant céréales, minéraux et produits sidérurgiques."
+      },
+      {
+        "title": "Ro/Ro et Manutention de Véhicules",
+        "description": "Opérations professionnelles roll-on/roll-off pour voitures, camions, remorques et équipements de construction."
+      },
+      {
+        "title": "Sécurité et Assurance Qualité",
+        "description": "Gestion HSSEQ certifiée ISO assurant zéro incident grâce à des protocoles de sécurité rigoureux."
+      },
+      {
+        "title": "Agence Maritime et Documentation",
+        "description": "Agence portuaire de service complet incluant dédouanement, documentation maritime et services d'équipage."
+      },
+      {
+        "title": "Stockage de Fret et Logistique",
+        "description": "Entreposage climatisé, empotage/dépotage de conteneurs et gestion d'inventaire."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Explorez notre flotte complète de navires traités au port de Tema.",
+    "items": []
+  },
+  "ghana": {
+    "title": "Opérations Ghana",
+    "subtitle": "La principale porte d'entrée maritime de l'Afrique de l'Ouest et centre d'affaires stratégique.",
+    "content": ""
+  },
+  "reports": {
+    "title": "Rapports",
+    "subtitle": "Rapports complets et documentation pour nos opérations maritimes.",
+    "content": ""
+  },
+  "footer": {
+    "company": "Agilent Maritime Services Limited",
+    "description": "Spécialiste leader Roll-on/Roll-off au port de Tema, Ghana.",
+    "links": []
+  },
+  "common": {
+    "learnMore": "En Savoir Plus",
+    "contactUs": "Nous Contacter",
+    "getQuote": "Devis",
+    "download": "Télécharger"
+  }
+}

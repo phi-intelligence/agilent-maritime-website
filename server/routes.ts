@@ -1,10 +1,14 @@
-import type { Express } from "express";
+import express, { type Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve static assets from attached_assets
+  app.use('/attached_assets', express.static(path.resolve(import.meta.dirname, '..', 'attached_assets')));
+
   // Contact form submission
   app.post('/api/contact', async (req, res) => {
     try {
@@ -26,95 +30,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contacts = await storage.getAllContacts();
       res.json(contacts);
     } catch (error) {
-      res.status(500).json({ success: false, message: 'Internal server error' });
+      console.error('Database error in /api/contacts:', error);
+      res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
     }
   });
 
-  // Get all reports
-  app.get('/api/reports', async (req, res) => {
-    try {
-      const { category } = req.query;
-      const reports = category && typeof category === 'string' 
-        ? await storage.getReportsByCategory(category)
-        : await storage.getAllReports();
-      res.json(reports);
-    } catch (error) {
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-  });
-
-  // Download report (increments counter)
-  app.post('/api/reports/:id/download', async (req, res) => {
+  // Mark contact as responded
+  app.patch('/api/contacts/:id/responded', async (req, res) => {
     try {
       const { id } = req.params;
-      const report = await storage.getReport(id);
-      
-      if (!report) {
-        return res.status(404).json({ success: false, message: 'Report not found' });
-      }
-      
-      await storage.incrementDownloadCount(id);
-      res.json({ 
-        success: true, 
-        downloadUrl: report.filePath,
-        fileName: report.title
-      });
+      await storage.markContactResponded(id);
+      res.json({ success: true, message: 'Contact marked as responded' });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
 
-  // Language content
-  app.get('/api/language/:code', async (req, res) => {
+  // Delete contact
+  app.delete('/api/contacts/:id', async (req, res) => {
     try {
-      const { code } = req.params;
-      const content = await storage.getLanguageContent(code);
-      res.json(content);
+      const { id } = req.params;
+      await storage.deleteContact(id);
+      res.json({ success: true, message: 'Contact deleted successfully' });
     } catch (error) {
       res.status(500).json({ success: false, message: 'Internal server error' });
     }
   });
 
-  // Search functionality for services and portfolio
-  app.get('/api/search', async (req, res) => {
-    try {
-      const { q, type } = req.query;
-      
-      // Mock search results for now
-      const searchResults = {
-        services: [
-          { id: '1', title: 'RoRo Operations', description: 'Roll-on/Roll-off vehicle services', type: 'service' },
-          { id: '2', title: 'Container Handling', description: 'Container operations and management', type: 'service' },
-          { id: '3', title: 'Heavy Lift Cargo', description: 'Specialized heavy lifting operations', type: 'service' },
-        ],
-        portfolio: [
-          { id: '1', title: 'West Africa Vehicle Terminal', description: 'Major RoRo operations project', type: 'portfolio' },
-          { id: '2', title: 'Mining Equipment Project', description: 'Heavy lift cargo operations', type: 'portfolio' },
-        ]
-      };
-      
-      let results: any[] = [];
-      if (type === 'services' || !type) {
-        results = results.concat(searchResults.services);
-      }
-      if (type === 'portfolio' || !type) {
-        results = results.concat(searchResults.portfolio);
-      }
-      
-      // Filter by query if provided
-      if (q && typeof q === 'string') {
-        const query = q.toLowerCase();
-        results = results.filter(item => 
-          item.title.toLowerCase().includes(query) || 
-          item.description.toLowerCase().includes(query)
-        );
-      }
-      
-      res.json(results);
-    } catch (error) {
-      res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-  });
+
+
 
   const httpServer = createServer(app);
   return httpServer;

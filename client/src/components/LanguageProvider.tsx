@@ -1,4 +1,13 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import languageContentData from '../data/language-content.json';
+
+interface ServiceItem {
+  title: string;
+  description: string;
+  details?: string;
+  capabilities?: string[];
+  icon?: string;
+}
 
 interface LanguageContent {
   navigation: {
@@ -6,8 +15,8 @@ interface LanguageContent {
     services: string;
     portfolio: string;
     ghana: string;
-    reports: string;
     contact: string;
+    models: string;
   };
   hero: {
     badge: string;
@@ -15,10 +24,331 @@ interface LanguageContent {
     subtitle: string;
     cta1: string;
     cta2: string;
+    extendedDescription?: string;
+    statistics?: Array<{
+      value: string;
+      label: string;
+      description: string;
+    }>;
   };
   services: {
     title: string;
     subtitle: string;
+    items: ServiceItem[];
+  };
+  portfolio: {
+    title: string;
+    subtitle: string;
+    items: ServiceItem[];
+  };
+  ghana?: {
+    title: string;
+    subtitle: string;
+    content: string;
+  };
+  mission: {
+    title: string;
+    description1: string;
+    description2: string;
+    stats: Array<{
+      value: string;
+      label: string;
+      description: string;
+    }>;
+  };
+  partners: {
+    title: string;
+    items: Array<{
+      name: string;
+      description: string;
+    }>;
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+    items: Array<{
+      quote: string;
+      name: string;
+      title: string;
+    }>;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    form: {
+      firstName: string;
+      lastName: string;
+      company: string;
+      email: string;
+      message: string;
+      messagePlaceholder: string;
+      submit: string;
+      privacy: string;
+      privacyLink: string;
+    };
+    testimonial: {
+      quote: string;
+      name: string;
+      title: string;
+    };
+  };
+  servicesPage: {
+    hero: {
+      badge: string;
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
+      stats: Array<{
+        value: string;
+        label: string;
+      }>;
+    };
+    detailedServices: {
+      title: string;
+      subtitle: string;
+      services: Array<{
+        title: string;
+        description: string;
+      }>;
+    };
+    portOperations: {
+      title: string;
+      subtitle: string;
+      sections: Array<{
+        title: string;
+        details: string[];
+      }>;
+    };
+    portContacts: {
+      title: string;
+      subtitle: string;
+      sections: Array<{
+        title: string;
+        details: string[];
+      }>;
+    };
+    customsDocumentation: {
+      title: string;
+      subtitle: string;
+      sections: Array<{
+        title: string;
+        details: string[];
+      }>;
+    };
+    weatherTides: {
+      title: string;
+      subtitle: string;
+      sections: Array<{
+        title: string;
+        details: string[];
+      }>;
+    };
+  };
+  portfolioPage: {
+    hero: {
+      badge: string;
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
+      stats: Array<{
+        value: string;
+        label: string;
+      }>;
+    };
+    vesselFleet: {
+      title: string;
+      subtitle: string;
+      searchPlaceholder: string;
+      filterAll: string;
+      filterAllTypes: string;
+      noVesselsFound: string;
+      noVesselsMessage: string;
+      noVesselsSearchMessage: string;
+    };
+    vesselModal: {
+      basicInfo: string;
+      technicalSpecs: string;
+      classification: string;
+      operations: string;
+      labels: {
+        type: string;
+        series: string;
+        flag: string;
+        built: string;
+        imo: string;
+        mmsi: string;
+        grossTonnage: string;
+        deadweight: string;
+        length: string;
+        beam: string;
+        draft: string;
+        serviceSpeed: string;
+        class: string;
+        enginePower: string;
+        classification: string;
+        shipyard: string;
+        manager: string;
+        cargoType: string;
+        origin: string;
+      };
+      units: {
+        gt: string;
+        dwt: string;
+        meters: string;
+        knots: string;
+        kw: string;
+      };
+    };
+    portfolioSection: {
+      title: string;
+      subtitle: string;
+      stats: Array<{
+        icon: string;
+        value: string;
+        label: string;
+        description: string;
+      }>;
+    };
+  };
+  ghanaPage: {
+    hero: {
+      badge: string;
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
+      stats: Array<{
+        value: string;
+        label: string;
+      }>;
+    };
+    strategicPosition: {
+      title: string;
+      subtitle: string;
+      highlights: Array<{
+        title: string;
+        description: string;
+      }>;
+    };
+    ghanaAdvantage: {
+      title: string;
+      subtitle: string;
+      highlights: Array<{
+        title: string;
+        description: string;
+        details: string[];
+      }>;
+    };
+    leadership: {
+      title: string;
+      subtitle: string;
+      viewOpportunities: string;
+      teamMembers: Array<{
+        name: string;
+        position: string;
+        description: string;
+        extendedBio: string;
+        expertise: string[];
+        achievements: string[];
+        contact: {
+          email: string;
+          phone: string;
+          linkedin: string;
+        };
+      }>;
+    };
+    partnerships: {
+      title: string;
+      subtitle: string;
+      partnerships: Array<{
+        name: string;
+        role: string;
+        description: string;
+      }>;
+    };
+    operations: {
+      title: string;
+      subtitle: string;
+      services: Array<{
+        title: string;
+        description: string;
+      }>;
+    };
+    cta: {
+      title: string;
+      subtitle: string;
+      contactTeam: string;
+      visitFacilities: string;
+    };
+  };
+  contactPage: {
+    hero: {
+      badge: string;
+      title: string;
+      subtitle: string;
+      stats: Array<{
+        value: string;
+        label: string;
+      }>;
+    };
+    keyMetrics: {
+      title: string;
+      subtitle: string;
+      metrics: Array<{
+        label: string;
+        value: string;
+        period: string;
+        details: string;
+        trend: string;
+        description: string;
+      }>;
+    };
+    availableReports: {
+      title: string;
+      subtitle: string;
+      categories: Array<{
+        title: string;
+        description: string;
+        reports: Array<{
+          title: string;
+          date: string;
+          size: string;
+        }>;
+      }>;
+    };
+    transparency: {
+      title: string;
+      description: string;
+      features: string[];
+      subscribeButton: string;
+    };
+    archive: {
+      title: string;
+      description: string;
+      contactButton: string;
+    };
+  };
+  footer: {
+    company: string;
+    description: string;
+    address: string;
+    phone: string;
+    email: string;
+    sections: Array<{
+      title: string;
+      links: Array<{
+        label: string;
+        href: string;
+      }>;
+    }>;
+    copyright: string;
+    legal: {
+      privacy: string;
+      terms: string;
+    };
+    social: string[];
   };
   common: {
     learnMore: string;
@@ -33,99 +363,36 @@ interface LanguageContextType {
   setLanguage: (lang: string) => void;
   content: LanguageContent;
   isLoading: boolean;
+  availableLanguages: Array<{
+    code: string;
+    name: string;
+    flag: string;
+    dir: 'ltr' | 'rtl';
+  }>;
 }
 
-const defaultContent: LanguageContent = {
-  navigation: {
-    home: "Home",
-    services: "Services",
-    portfolio: "Portfolio",
-    ghana: "Ghana",
-    reports: "Reports",
-    contact: "Contact"
-  },
-  hero: {
-    badge: "Maritime Excellence",
-    title: "Agilent Maritime Services Limited",
-    subtitle: "Leading Stevedore Shipping Services and Maritime Logistics Solutions at Tema Port, Ghana. Professional vehicle shipping and cargo handling across West Africa.",
-    cta1: "Explore Our Services",
-    cta2: "Contact Us"
-  },
-  services: {
-    title: "Maritime Services",
-    subtitle: "Professional stevedoring and port services tailored to meet the demands of modern maritime commerce."
-  },
-  common: {
-    learnMore: "Learn More",
-    contactUs: "Contact Us",
-    getQuote: "Get Quote",
-    download: "Download"
-  }
-};
+// Available languages with metadata
+const availableLanguages = [
+  { code: 'en', name: 'English', flag: 'EN', dir: 'ltr' as const },
+  { code: 'zh', name: '中文', flag: 'ZH', dir: 'ltr' as const },
+  { code: 'ar', name: 'العربية', flag: 'AR', dir: 'rtl' as const },
+  { code: 'el', name: 'Ελληνικά', flag: 'EL', dir: 'ltr' as const },
+  { code: 'ja', name: '日本語', flag: 'JA', dir: 'ltr' as const },
+  { code: 'de', name: 'Deutsch', flag: 'DE', dir: 'ltr' as const },
+  { code: 'es', name: 'Español', flag: 'ES', dir: 'ltr' as const },
+  { code: 'nl', name: 'Nederlands', flag: 'NL', dir: 'ltr' as const },
+  { code: 'fr', name: 'Français', flag: 'FR', dir: 'ltr' as const }
+];
 
-const languageContent: Record<string, LanguageContent> = {
-  en: defaultContent,
-  es: {
-    navigation: {
-      home: "Inicio",
-      services: "Servicios", 
-      portfolio: "Portafolio",
-      ghana: "Ghana",
-      reports: "Informes",
-      contact: "Contacto"
-    },
-    hero: {
-      badge: "Excelencia Marítima",
-      title: "Agilent Maritime Services Limited",
-      subtitle: "Servicios líder de estiba y logística marítima en el Puerto de Tema, Ghana. Transporte profesional de vehículos y manejo de carga en África Occidental.",
-      cta1: "Explorar Servicios",
-      cta2: "Contáctanos"
-    },
-    services: {
-      title: "Servicios Marítimos",
-      subtitle: "Servicios profesionales de estiba y puertos adaptados a las demandas del comercio marítimo moderno."
-    },
-    common: {
-      learnMore: "Saber Más",
-      contactUs: "Contáctanos", 
-      getQuote: "Cotización",
-      download: "Descargar"
-    }
-  },
-  fr: {
-    navigation: {
-      home: "Accueil",
-      services: "Services",
-      portfolio: "Portfolio", 
-      ghana: "Ghana",
-      reports: "Rapports",
-      contact: "Contact"
-    },
-    hero: {
-      badge: "Excellence Maritime",
-      title: "Agilent Maritime Services Limited",
-      subtitle: "Services de manutention et de logistique maritime de premier plan au Port de Tema, Ghana. Transport professionnel de véhicules et manutention de fret en Afrique de l'Ouest.",
-      cta1: "Explorer Nos Services",
-      cta2: "Nous Contacter"
-    },
-    services: {
-      title: "Services Maritimes",
-      subtitle: "Services professionnels de manutention portuaire adaptés aux exigences du commerce maritime moderne."
-    },
-    common: {
-      learnMore: "En Savoir Plus",
-      contactUs: "Nous Contacter",
-      getQuote: "Devis",
-      download: "Télécharger"
-    }
-  }
-};
+// Use the actual English content as default
+const defaultContent: LanguageContent = languageContentData.en as LanguageContent;
 
 const LanguageContext = createContext<LanguageContextType>({
   currentLanguage: 'en',
   setLanguage: () => {},
   content: defaultContent,
-  isLoading: false
+  isLoading: false,
+  availableLanguages
 });
 
 interface LanguageProviderProps {
@@ -134,8 +401,20 @@ interface LanguageProviderProps {
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [content, setContent] = useState(defaultContent);
+  const [content, setContent] = useState<LanguageContent>(defaultContent);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Get content for a specific language
+  const getLanguageContent = (lang: string): LanguageContent => {
+    const extractedContent = languageContentData[lang as keyof typeof languageContentData];
+    
+    if (extractedContent) {
+      // Return the extracted content directly
+      return extractedContent as LanguageContent;
+    }
+    
+    return defaultContent;
+  };
 
   const setLanguage = async (lang: string) => {
     if (lang === currentLanguage) return;
@@ -143,22 +422,8 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     setIsLoading(true);
     
     try {
-      // Try to fetch from API first, fall back to local content
-      const response = await fetch(`/api/language/${lang}`);
-      let newContent = defaultContent;
-      
-      if (response.ok) {
-        const apiContent = await response.json();
-        // Use API content if it has the expected structure, otherwise fallback
-        if (apiContent && typeof apiContent === 'object' && apiContent.navigation) {
-          newContent = apiContent as LanguageContent;
-        } else {
-          newContent = languageContent[lang] || defaultContent;
-        }
-      } else {
-        // Use local content as fallback
-        newContent = languageContent[lang] || defaultContent;
-      }
+      // Use local JSON content directly
+      const newContent = getLanguageContent(lang);
       
       setCurrentLanguage(lang);
       setContent(newContent);
@@ -166,14 +431,16 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       // Persist to localStorage
       localStorage.setItem('preferred-language', lang);
       
-      // Update document language
+      // Update document language and direction
+      const languageInfo = availableLanguages.find(l => l.code === lang);
       document.documentElement.lang = lang;
+      document.documentElement.dir = languageInfo?.dir || 'ltr';
       
       console.log(`Language switched to: ${lang}`);
     } catch (error) {
-      console.warn('Failed to fetch language content from API, using local fallback');
-      setCurrentLanguage(lang);
-      setContent(languageContent[lang] || defaultContent);
+      console.warn('Failed to switch language, using default');
+      setCurrentLanguage('en');
+      setContent(defaultContent);
     } finally {
       setIsLoading(false);
     }
@@ -184,10 +451,14 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     const storedLang = localStorage.getItem('preferred-language');
     const browserLang = navigator.language.split('-')[0];
     
-    if (storedLang && languageContent[storedLang]) {
+    // Check if stored language is available
+    if (storedLang && availableLanguages.find(l => l.code === storedLang)) {
       setLanguage(storedLang);
-    } else if (languageContent[browserLang]) {
+    } else if (availableLanguages.find(l => l.code === browserLang)) {
       setLanguage(browserLang);
+    } else {
+      // Default to English
+      setLanguage('en');
     }
   }, []);
 
@@ -196,7 +467,8 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       currentLanguage,
       setLanguage,
       content,
-      isLoading
+      isLoading,
+      availableLanguages
     }}>
       {children}
     </LanguageContext.Provider>

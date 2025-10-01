@@ -1,0 +1,25 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing dependencies..."
+        - npm ci
+        - echo "Setting up environment variables..."
+        - echo "VITE_AMPLIFY_APP_ID=$AMPLIFY_APP_ID" >> .env.production
+        - echo "VITE_AWS_REGION=$AWS_REGION" >> .env.production
+        - echo "VITE_S3_BUCKET_NAME=$S3_BUCKET_NAME" >> .env.production
+        - echo "VITE_DYNAMODB_TABLE_NAME=$DYNAMODB_TABLE_NAME" >> .env.production
+    build:
+      commands:
+        - echo "Building the application..."
+        - npm run build
+        - echo "Build completed successfully"
+  artifacts:
+    baseDirectory: static-build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

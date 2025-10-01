@@ -1,0 +1,19 @@
+version: 1.0
+runtime: nodejs18
+build:
+  commands:
+    build:
+      - npm install
+      - npm run build
+run:
+  runtime-version: 18
+  command: npm start
+  network:
+    port: 3000
+  env:
+    - name: NODE_ENV
+      value: "production"
+    - name: DATABASE_URL
+      value: "postgresql://username:password@neon-endpoint:5432/agilent_maritime"
+    - name: PORT
+      value: "3000"

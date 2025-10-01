@@ -1,0 +1,73 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "services": "Dienstleistungen",
+    "portfolio": "Portfolio",
+    "ghana": "Ghana",
+    "reports": "Berichte",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "badge": "Maritime Exzellenz",
+    "title": "Agilent Maritime Services Limited",
+    "subtitle": "Führende Stauer-Schifffahrtsdienste und Maritime Logistiklösungen im Hafen Tema, Ghana. Professioneller Fahrzeugtransport und Frachtabwicklung in ganz Westafrika.",
+    "cta1": "Unsere Services entdecken",
+    "cta2": "Kontaktieren Sie uns"
+  },
+  "services": {
+    "title": "Maritime Dienstleistungen",
+    "subtitle": "Professionelle Stau- und Hafendienstleistungen, die auf die Anforderungen des modernen Schifffahrtshandels zugeschnitten sind.",
+    "items": [
+      {
+        "title": "Schwerlast & Projektfracht",
+        "description": "Fachgerechte Behandlung von übergroßen Frachten, Stückgut und Projektsendungen mit spezialisierter Ausrüstung."
+      },
+      {
+        "title": "Schüttgut- & Stückgutbetrieb",
+        "description": "Umfassende Behandlung von trockenen Schüttgütern einschließlich Getreide, Mineralien und Stahlprodukten."
+      },
+      {
+        "title": "Ro/Ro & Fahrzeugbehandlung",
+        "description": "Professionelle Roll-on/Roll-off-Betriebe für Autos, LKWs, Anhänger und Baugeräte."
+      },
+      {
+        "title": "Sicherheit & Qualitätssicherung",
+        "description": "ISO-zertifiziertes HSSEQ-Management, das durch strenge Sicherheitsprotokolle null Vorfälle gewährleistet."
+      },
+      {
+        "title": "Schiffsmakler & Dokumentation",
+        "description": "Vollservice-Hafenmakler einschließlich Zollabfertigung, Schifffahrtsdokumentation und Crew-Services."
+      },
+      {
+        "title": "Frachtlagerung & Logistik",
+        "description": "Klimakontrollierte Lagerung, Container-Verpackung/Auspackung und Bestandsverwaltung."
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Erkunden Sie unsere umfassende Flotte von Schiffen, die im Hafen Tema abgefertigt werden.",
+    "items": []
+  },
+  "ghana": {
+    "title": "Ghana-Operationen",
+    "subtitle": "Westafrikas führende maritime Drehscheibe und strategisches Geschäftszentrum.",
+    "content": ""
+  },
+  "reports": {
+    "title": "Berichte",
+    "subtitle": "Umfassende Berichte und Dokumentation für unsere Schifffahrtsoperationen.",
+    "content": ""
+  },
+  "footer": {
+    "company": "Agilent Maritime Services Limited",
+    "description": "Führender Roll-on/Roll-off-Spezialist im Hafen Tema, Ghana.",
+    "links": []
+  },
+  "common": {
+    "learnMore": "Mehr erfahren",
+    "contactUs": "Kontaktieren Sie uns",
+    "getQuote": "Angebot erhalten",
+    "download": "Herunterladen"
+  }
+}
