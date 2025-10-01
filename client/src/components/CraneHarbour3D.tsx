@@ -137,32 +137,30 @@ export function CraneHarbour3D({ className = "", style }: CraneHarbour3DProps) {
       style={style}
     >
       <Canvas
-        camera={{ 
-          position: screenSize.width < 768 
-            ? [-15, 18, 20]  // Mobile: top left side view - adjusted for larger scale
-            : screenSize.width < 1024 
-            ? [-18, 22, 25]  // Tablet: top left side view - adjusted for larger scale
-            : [-18, 18, 60], // Desktop: top left side view - adjusted for larger scale
-          fov: screenSize.width < 768 ? 75 : 65 
+        camera={{
+          position: screenSize.width < 768
+            ? [-1, 10, 45]  // Mobile: camera positioned LEFT to center crane in viewport
+            : screenSize.width < 1024
+            ? [-17, 18, 52]  // Tablet: adjusted for better centering
+            : [-18, 18, 60], // Desktop: unchanged - already perfect
+          fov: screenSize.width < 768 ? 60 : 65  // Reduced mobile FOV from 75 to 60 for less distortion
         }}
         style={{ background: 'transparent' }}
-        gl={{ 
-          antialias: screenSize.width >= 768, // Disable on mobile for performance
+        gl={{
+          antialias: true, // Enable on all devices for better visual quality
           alpha: true,
           powerPreference: "high-performance"
         }}
       >
-        {/* Responsive lighting for crane visibility */}
-        <ambientLight intensity={screenSize.width < 768 ? 0.9 : 0.8} color="#ffffff" />
-        <directionalLight 
-          position={screenSize.width < 768 ? [8, 8, 4] : [10, 10, 5]} 
-          intensity={screenSize.width < 768 ? 0.9 : 0.8} 
-          color="#ffffff" 
+        {/* Uniform lighting for crane visibility across all devices */}
+        <ambientLight intensity={0.85} color="#ffffff" />
+        <directionalLight
+          position={[10, 10, 5]}
+          intensity={0.8}
+          color="#ffffff"
         />
-        <pointLight position={[0, 5, 5]} intensity={screenSize.width < 768 ? 0.6 : 0.5} color="#ffffff" />
-        {screenSize.width >= 768 && (
-          <pointLight position={[-5, 5, 5]} intensity={0.3} color="#87CEEB" />
-        )}
+        <pointLight position={[0, 5, 5]} intensity={0.5} color="#ffffff" />
+        <pointLight position={[-5, 5, 5]} intensity={0.3} color="#87CEEB" />
 
         {/* Crane Model */}
         <CraneModel isVisible={isVisible} screenSize={screenSize} />

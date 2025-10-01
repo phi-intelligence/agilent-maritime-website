@@ -56,7 +56,7 @@ export function Hero() {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-600 to-slate-800"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-600 to-slate-800 pt-16 md:pt-0"
       data-testid="section-hero"
     >
       {/* Video Background */}
@@ -106,13 +106,13 @@ export function Hero() {
 
       
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center pt-4 md:pt-0">
         {/* Logo */}
-        <div className="mb-12 animate-fade-in">
+        <div className="mb-8 md:mb-12 animate-fade-in">
           <img 
             src={getAssetUrl(ASSET_PATHS.HERO.LOGO)} 
             alt="Agilent Maritime Logo" 
-            className="h-24 md:h-32 lg:h-40 w-auto mx-auto drop-shadow-lg"
+            className="h-20 md:h-32 lg:h-40 w-auto mx-auto drop-shadow-lg"
             data-testid="hero-logo"
           />
         </div>

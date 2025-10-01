@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import { Moon, Sun, Globe, Ship, Menu, X, Settings, LogIn } from "lucide-react";
+import { Moon, Sun, Globe, Ship, Settings, LogIn } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage } from "./LanguageProvider";
 import { ContactFormModal } from "./ContactFormModal";
@@ -30,7 +30,6 @@ export function Navigation() {
   const [location] = useLocation();
   const { theme, setTheme } = useTheme();
   const { currentLanguage, setLanguage, content, availableLanguages } = useLanguage();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { scrollToSection } = useScrollTo();
@@ -51,7 +50,6 @@ export function Navigation() {
     if (location === path && sectionId) {
       scrollToSection(sectionId);
     }
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -69,14 +67,14 @@ export function Navigation() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" data-testid="link-home">
-              <div className="flex items-center space-x-3 hover-elevate rounded-lg px-3 py-2">
+              <div className="flex items-center space-x-2 md:space-x-3 hover-elevate rounded-lg px-2 md:px-3 py-2">
                 <img 
                   src={getAssetUrl(ASSET_PATHS.HERO.LOGO)} 
                   alt="Agilent Maritime Logo" 
-                  className="h-8 w-auto"
+                  className="h-6 md:h-8 w-auto"
                 />
                 <div className="flex flex-col">
-                  <span className="text-xl font-bold text-foreground">Agilent</span>
+                  <span className="text-lg md:text-xl font-bold text-foreground">Agilent</span>
                   <span className="text-xs text-muted-foreground -mt-1">Maritime</span>
                 </div>
               </div>
@@ -160,39 +158,10 @@ export function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                data-testid="button-mobile-menu"
-              >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden backdrop-blur-md bg-background/95 border-t border-border/50">
-            <div className="px-6 py-4 space-y-2">
-              {navItems.map((item) => (
-                <Link key={item.path} href={item.path}>
-                  <Button
-                    variant={location === item.path ? "default" : "ghost"}
-                    className="w-full justify-start"
-                    onClick={() => handleNavClick(item.path)}
-                    data-testid={`mobile-link-${item.label.toLowerCase()}`}
-                  >
-                    {content.navigation[item.key as keyof typeof content.navigation] || item.label}
-                  </Button>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Mobile Bottom Navigation */}

@@ -96,19 +96,19 @@ export function ServicesSection() {
           </div>
           
           {/* Right Container - Crane Animation with Glass Container */}
-          <div className="lg:col-span-1 relative h-80 lg:h-auto lg:min-h-[600px] transition-all duration-500">
+          <div className="lg:col-span-1 relative h-[500px] lg:h-auto lg:min-h-[600px] transition-all duration-500">
             <div className="absolute inset-0 backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300">
-              <CraneHarbour3D 
-                className="z-5" 
-                style={{ 
-                  position: 'absolute', 
-                  top: 0, 
-                  left: 0, 
-                  width: '100%', 
+              <CraneHarbour3D
+                className="z-5"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
                   height: '100%',
-                  minHeight: '280px', // Ensure minimum height on mobile
+                  minHeight: '400px', // Increased from 280px to 400px for better mobile view
                   maxHeight: '650px'  // Prevent excessive height on large screens
-                }} 
+                }}
               />
             </div>
           </div>
